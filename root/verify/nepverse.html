@@ -45,17 +45,19 @@
         .submit-btn:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
+        .checkbox {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- CAPTCHA Section -->
+    <!-- Fake CAPTCHA Section -->
     <div class="captcha-container" id="captchaSection">
-        <h2>Complete the CAPTCHA to Verify</h2>
-        <!-- Example CAPTCHA, replace with real CAPTCHA system like Google reCAPTCHA -->
-        <iframe src="https://www.google.com/recaptcha/api/fallback?k=your-site-key" width="302" height="423"></iframe>
-        <button class="submit-btn" onclick="solveCaptcha()">Submit</button>
+        <h2>Solve the CAPTCHA</h2>
+        <input type="checkbox" id="captchaCheckbox" class="checkbox"> I am not a robot
+        <button class="submit-btn" onclick="solveCaptcha()">Submit CAPTCHA</button>
     </div>
 
     <!-- Verification Section -->
@@ -71,16 +73,20 @@
     };
 
     function solveCaptcha() {
-        // Simulate CAPTCHA solving. Replace with real validation logic.
+        const captchaCheckbox = document.getElementById('captchaCheckbox');
         const captchaSection = document.getElementById('captchaSection');
         const verifySection = document.getElementById('verifySection');
-        
-        captchaSection.style.opacity = 0;  // Fade-out captcha section
-        setTimeout(() => {
-            captchaSection.style.display = 'none';
-            verifySection.style.display = 'block';
-            verifySection.style.opacity = 1;  // Fade-in verify section
-        }, 1000);
+
+        if (captchaCheckbox.checked) {
+            captchaSection.style.opacity = 0;  // Fade-out captcha section
+            setTimeout(() => {
+                captchaSection.style.display = 'none';
+                verifySection.style.display = 'block';
+                verifySection.style.opacity = 1;  // Fade-in verify section
+            }, 1000);  // 1 second fade-out/fade-in delay
+        } else {
+            alert('Please solve the CAPTCHA by checking the box.');
+        }
     }
 
     function verify() {
