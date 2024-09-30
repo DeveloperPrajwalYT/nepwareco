@@ -1,0 +1,16 @@
+<head>
+<title>Status</title>
+<style>
+code.massu {
+
+font size: 59,
+
+}
+
+</style>
+</head>
+<code class="massu">{
+
+Status: "🟢 | Working Fine."
+
+}</code>
