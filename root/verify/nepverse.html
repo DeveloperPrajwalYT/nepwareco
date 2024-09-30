@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .container {
+            text-align: center;
+        }
+        .captcha-container, .verify-container {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .captcha-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .verify-container {
+            display: none;
+        }
+        .submit-btn {
+            border: 2px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- CAPTCHA Section -->
+    <div class="captcha-container" id="captchaSection">
+        <h2>Complete the CAPTCHA to Verify</h2>
+        <!-- Example CAPTCHA, replace with real CAPTCHA system like Google reCAPTCHA -->
+        <iframe src="https://www.google.com/recaptcha/api/fallback?k=your-site-key" width="302" height="423"></iframe>
+        <button class="submit-btn" onclick="solveCaptcha()">Submit</button>
+    </div>
+
+    <!-- Verification Section -->
+    <div class="verify-container" id="verifySection">
+        <h1>Verification</h1>
+        <button class="submit-btn" onclick="verify()">Verify</button>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        document.body.style.opacity = 1;  // Fade-in effect on load
+    };
+
+    function solveCaptcha() {
+        // Simulate CAPTCHA solving. Replace with real validation logic.
+        const captchaSection = document.getElementById('captchaSection');
+        const verifySection = document.getElementById('verifySection');
+        
+        captchaSection.style.opacity = 0;  // Fade-out captcha section
+        setTimeout(() => {
+            captchaSection.style.display = 'none';
+            verifySection.style.display = 'block';
+            verifySection.style.opacity = 1;  // Fade-in verify section
+        }, 1000);
+    }
+
+    function verify() {
+        window.location.href = 'https://discord.com/oauth2/authorize?client_id=1284412939822170173&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=18880';
+    }
+</script>
+
+</body>
+</html>
