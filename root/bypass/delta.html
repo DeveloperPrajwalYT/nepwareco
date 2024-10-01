@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepware Bypasser</title>
+</head>
+<body>
+
+    <div id="key" class="key"></div>
+
+    <script>
+        // Function to extract the "token" from the URL
+        function getTokenFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('token');
+        }
+
+        // Main function to fetch and display the Key field
+        async function fetchData(hwid) {
+            const apiKey = 'tUnAZj3sS74DJo9BUb8tshpVhpLJLA'; // StickX API key
+            const apiUrl = `https://stickx.top/api-delta/?hwid=${hwid}&api_key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const key = data.key || 'Key not found'; // Fetch only the 'key' value
+                document.getElementById('key').innerText = key;
+            } catch (error) {
+                console.error('Error:', error.message);
+                document.getElementById('key').innerText = 'Error fetching key';
+            }
+        }
+
+        // Extract HWID from the URL and fetch the data
+        const tokenUrl = getTokenFromUrl();
+        if (tokenUrl) {
+            const urlParams = new URL(tokenUrl);
+            const hwid = urlParams.searchParams.get('HWID');
+
+            if (hwid) {
+                fetchData(hwid);  // Call fetchData with extracted HWID
+            } else {
+                document.getElementById('key').innerText = 'HWID not found in the URL';
+            }
+        } else {
+            document.getElementById('key').innerText = 'Token not found in the URL';
+        }
+    </script>
+
+</body>
+</html>
