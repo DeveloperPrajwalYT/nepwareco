@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWID Data Fetcher</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 90%;
+        }
+        .data {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HWID Data Fetcher</h1>
+        <div id="data" class="data">Loading data...</div>
+    </div>
+
+    <script>
+        // Function to extract the "token" from the URL
+        function getTokenFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('token');
+        }
+
+        // Main function to fetch and display the data
+        async function fetchData(hwid) {
+            const apiKey = 'E99l9NOctud3vmu6bPne'; // StickX API key
+            const apiUrl = `https://stickx.top/api-fluxus/?hwid=${hwid}&api_key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('data').innerText = JSON.stringify(data, null, 2);
+                } else {
+                    document.getElementById('data').innerText = 'Failed to fetch data from API';
+                }
+            } catch (error) {
+                document.getElementById('data').innerText = 'Error: ' + error.message;
+            }
+        }
+
+        // Extract HWID from the URL and fetch the data
+        const tokenUrl = getTokenFromUrl();
+        if (tokenUrl) {
+            const urlParams = new URL(tokenUrl);
+            const hwid = urlParams.searchParams.get('HWID');
+
+            if (hwid) {
+                fetchData(hwid);  // Call fetchData with extracted HWID
+            } else {
+                document.getElementById('data').innerText = 'Invalid or missing HWID in token URL';
+            }
+        } else {
+            document.getElementById('data').innerText = 'No token URL provided in ?token=';
+        }
+    </script>
+</body>
+</html>
