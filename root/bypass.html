@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HWID Key</title>
+    <title>Nepware Bypasser</title>
 </head>
 <body>
 
-    <div id="key" class="key"></div>
+    <div id="stickxKey"></div>
+    <div id="deltaKey"></div>
+    <div id="platoboostKey"></div>
 
     <script>
         // Function to extract the "token" from the URL
@@ -16,35 +18,49 @@
             return params.get('token');
         }
 
-        // Main function to fetch and display the Key field
-        async function fetchData(hwid) {
-            const apiKey = 'E99l9NOctud3vmu6bPne'; // StickX API key
-            const apiUrl = `https://stickx.top/api-fluxus/?hwid=${hwid}&api_key=${apiKey}`;
+        // Main function to fetch and display keys
+        async function fetchKeys(hwid) {
+            const stickxApiKey = 'E99l9NOctud3vmu6bPne'; // StickX API key
+            const deltaApiKey = 'tUnAZj3sS74DJo9BUb8tshpVhpLJLA'; // Delta API key
+
+            // API URLs
+            const stickxApiUrl = `https://stickx.top/api-fluxus/?hwid=${hwid}&api_key=${stickxApiKey}`;
+            const deltaApiUrl = `https://stickx.top/api-delta/?hwid=${hwid}&api_key=${deltaApiKey}`;
+            const platoboostApiUrl = `https://gateway.platoboost.com/a/8?id=${hwid}`;
 
             try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                const key = data.key || 'Key not found'; // Fetch only the 'key' value
-                document.getElementById('key').innerText = key;
+                // Fetch StickX key
+                const stickxResponse = await fetch(stickxApiUrl);
+                const stickxData = await stickxResponse.json();
+                const stickxKey = stickxData.key || 'StickX key not found';
+                document.getElementById('stickxKey').innerText = `StickX Key: ${stickxKey}`;
+
+                // Fetch Delta key
+                const deltaResponse = await fetch(deltaApiUrl);
+                const deltaData = await deltaResponse.json();
+                const deltaKey = deltaData.key || 'Delta key not found';
+                document.getElementById('deltaKey').innerText = `Delta Key: ${deltaKey}`;
+
+                // Fetch Platoboost key
+                const platoboostResponse = await fetch(platoboostApiUrl);
+                const platoboostData = await platoboostResponse.json();
+                const platoboostKey = platoboostData.key || 'Platoboost key not found';
+                document.getElementById('platoboostKey').innerText = `Platoboost Key: ${platoboostKey}`;
+
             } catch (error) {
                 console.error('Error:', error.message);
-                document.getElementById('key').innerText = 'Error fetching key';
             }
         }
 
-        // Extract HWID from the URL and fetch the data
+        // Extract HWID from the URL and fetch the keys
         const tokenUrl = getTokenFromUrl();
         if (tokenUrl) {
             const urlParams = new URL(tokenUrl);
             const hwid = urlParams.searchParams.get('HWID');
 
             if (hwid) {
-                fetchData(hwid);  // Call fetchData with extracted HWID
-            } else {
-                document.getElementById('key').innerText = 'HWID not found in the URL';
+                fetchKeys(hwid);  // Call fetchKeys with extracted HWID
             }
-        } else {
-            document.getElementById('key').innerText = 'Token not found in the URL';
         }
     </script>
 
