@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploit Z Adlink Bypass</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://media.discordapp.net/attachments/1304428962512109691/1308744257116573718/images_28.jpg?ex=673f0e92&is=673dbd12&hm=445f8d8b7a070bfa21620838095386bca6f47c70a451f14ec22b0f1315436899&') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+        input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            word-wrap: break-word;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        .modal.show {
+            display: block;
+        }
+        .close-btn {
+            color: white;
+            background: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Exploit Z Adlink Bypass</h1>
+        <form id="bypassForm">
+            <input type="url" id="urlInput" placeholder="Enter the URL" required>
+            <div class="g-recaptcha" data-sitekey="6LdPuIQqAAAAAJT2UHBayDNH9zQvwcPlgRDXHzr7"></div>
+            <button type="submit" class="btn">Bypass</button>
+        </form>
+        <div id="result" class="result"></div>
+        <button class="btn" id="joinServer">Join Ez Server</button>
+        <button class="btn" id="supportedLinksBtn">Supported Links</button>
+    </div>
+
+    <div class="modal" id="supportedLinksModal">
+        <h3>Supported Links</h3>
+        <p>Linkvertise, Paster.so, Lootlinks/Lootlabs, work.ink, boost.ink, mboost.me, sub2get.com, social-unlock.com, unlocknow.net, sub2unlock.com, sub2unlock.net, sub2unlock.io, sub4unlock.io, rekonise.com, adfoc.us, v.gd, bit.ly, tinyurl.com, is.gd, rebrand.ly</p>
+        <button class="close-btn" id="closeModal">Close</button>
+    </div>
+
+    <script>
+        const form = document.getElementById("bypassForm");
+        const resultDiv = document.getElementById("result");
+        const joinServerBtn = document.getElementById("joinServer");
+        const supportedLinksBtn = document.getElementById("supportedLinksBtn");
+        const supportedLinksModal = document.getElementById("supportedLinksModal");
+        const closeModal = document.getElementById("closeModal");
+
+        const apiUrlBase64 = "aHR0cHM6Ly9hcGkuYnlwYXNzLnZpcC9ieXBhc3M/dXJsPQ==";
+        const apiUrl = atob(apiUrlBase64);
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const url = document.getElementById("urlInput").value;
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (!recaptchaResponse) {
+                resultDiv.innerHTML = "<span style='color: red;'>Please complete the CAPTCHA.</span>";
+                return;
+            }
+
+            resultDiv.textContent = "Processing...";
+
+            try {
+                const response = await fetch(apiUrl + encodeURIComponent(url), {
+                    method: "GET"
+                });
+                const data = await response.json();
+
+                if (data.result) {
+                    resultDiv.innerHTML = `
+                        <p>Result: ${data.result}</p>
+                        <button class="btn" onclick="copyToClipboard('${data.result}')">Copy Result</button>
+                        ${data.result.startsWith("http") ? `<a href="${data.result}" class="btn">Visit Link</a>` : ""}
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.message || "An error occurred."}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            } finally {
+                grecaptcha.reset();
+            }
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!"));
+        }
+
+        joinServerBtn.addEventListener("click", () => {
+            window.location.href = "#";
+        });
+
+        supportedLinksBtn.addEventListener("click", () => {
+            supportedLinksModal.classList.add("show");
+        });
+
+        closeModal.addEventListener("click", () => {
+            supportedLinksModal.classList.remove("show");
+        });
+    </script>
+</body>
+                                                            </html>
+                                                            
