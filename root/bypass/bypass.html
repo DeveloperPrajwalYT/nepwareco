@@ -1,20 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploit Z Adlink Bypass</title>
+    <title>Evolution X Adslink Bypass</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             background: url('https://media.discordapp.net/attachments/1304428962512109691/1308744257116573718/images_28.jpg?ex=673f0e92&is=673dbd12&hm=445f8d8b7a070bfa21620838095386bca6f47c70a451f14ec22b0f1315436899&') no-repeat center center fixed;
             background-size: cover;
             color: white;
             text-align: center;
+            transition: background 0.3s ease, color 0.3s ease;
         }
+
         .container {
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -22,29 +28,51 @@
             border-radius: 10px;
             width: 90%;
             max-width: 500px;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
+
+        h1 {
+            color: #ff4b5c;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
         input[type="url"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: none;
+            border: 2px solid transparent;
             border-radius: 5px;
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 5px rgba(255, 75, 92, 0.5);
+            transition: all 0.3s ease;
         }
+
+        input[type="url"]:focus {
+            border-color: #ff4b5c;
+            box-shadow: 0 0 8px rgba(255, 75, 92, 1);
+        }
+
         .btn {
             display: inline-block;
-            background-color: #007bff;
+            background-color: #ff4b5c;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             margin: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 75, 92, 0.6);
         }
+
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #ff2a3b;
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 75, 92, 1);
         }
+
         .result {
             margin-top: 20px;
             padding: 10px;
@@ -52,6 +80,7 @@
             background: rgba(255, 255, 255, 0.2);
             word-wrap: break-word;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -64,25 +93,32 @@
             border-radius: 10px;
             z-index: 1000;
         }
+
         .modal.show {
             display: block;
         }
+
         .close-btn {
             color: white;
             background: red;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
         }
+
+        .close-btn:hover {
+            background: darkred;
+        }
+
     </style>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Exploit Z Adlink Bypass</h1>
+        <h1>Evolution X Adslink Bypass</h1>
         <form id="bypassForm">
             <input type="url" id="urlInput" placeholder="Enter the URL" required>
-            <div class="g-recaptcha" data-sitekey="6LdPuIQqAAAAAJT2UHBayDNH9zQvwcPlgRDXHzr7"></div>
             <button type="submit" class="btn">Bypass</button>
         </form>
         <div id="result" class="result"></div>
@@ -110,12 +146,6 @@
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
             const url = document.getElementById("urlInput").value;
-            const recaptchaResponse = grecaptcha.getResponse();
-
-            if (!recaptchaResponse) {
-                resultDiv.innerHTML = "<span style='color: red;'>Please complete the CAPTCHA.</span>";
-                return;
-            }
 
             resultDiv.textContent = "Processing...";
 
@@ -136,8 +166,6 @@
                 }
             } catch (error) {
                 resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
-            } finally {
-                grecaptcha.reset();
             }
         });
 
@@ -158,5 +186,4 @@
         });
     </script>
 </body>
-                                                            </html>
-                                                            
+</html>
